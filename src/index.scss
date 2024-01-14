@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html, body{
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #d4bdf6;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(131, 56, 204);
+  border-radius: 10px;
+}
+
+@mixin glassEffect{
+  background: rgba(255, 255, 255, 0.62);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@mixin fontStyle($fs:1em, $fw:500, $c:white, $uppercase: false){
+    color: $c;
+    font-size: $fs;
+    font-weight: $fw;
+    font-family: "Poppins", sans-serif;
+    @if $uppercase {
+      text-transform: uppercase;
+    }
+}
+
+@mixin tableRowStyle(){
+  display: flex;
+  flex-wrap: nowrap;
+  row-gap: 1vh;
+  justify-content: space-around;
+}

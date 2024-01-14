@@ -1,0 +1,43 @@
+@import "../../index";
+.container{
+  width: 95%;
+  height: 65vh;
+  margin: 3vh auto;
+  text-align: center;
+  overflow-y: auto;
+  display: grid;
+  justify-content: center;
+}
+.headRow{
+   @include fontStyle(0.75em, 600, black);
+}
+.tableHead{
+  table-layout: fixed;
+  position: sticky;
+  top:0;
+  background-color: white;
+  z-index: 1;
+}
+.tableBody{
+  height: 50vh;
+  overflow-y: auto;
+}
+.list{
+  margin-top: 1vh;
+}
+.listContainer{
+  height: 55vh;
+  display: grid;
+  row-gap: 1vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 2vh 1vw;
+}
+td, th{
+  padding: 1.4vh;
+}
+table{
+  max-width: 65vw;
+  border-collapse: separate;
+  border-spacing: 0 2vh;
+}

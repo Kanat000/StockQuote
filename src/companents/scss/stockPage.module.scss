@@ -1,0 +1,91 @@
+@import "../../index";
+.container{
+    width: 100%;
+    height: 93vh;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+.title{
+  width: 100%;
+  text-align: center;
+  @include fontStyle(1.7em, 700, white, true);
+}
+.carousel{
+  width: 98vw;
+  height: 80vh;
+  position: relative;
+  margin-top: 2vh;
+   .active_card, .prev_card, .next_card{
+     width: 70vw;
+     height: 75vh;
+     background-color: white;
+     position: absolute;
+     border-radius: 3vh;
+   }
+  .active_card{
+    z-index: 1;
+    left: 15vw;
+  }
+  .prev_card{
+    left:0;
+    z-index: 0;
+    scale: 0.8;
+  }
+  .next_card{
+    right: 0;
+    z-index: 0;
+    scale: 0.8;
+
+  }
+}
+.counterContainer{
+  width: 100%;
+  margin-top: 2vh;
+  position: absolute;
+  bottom: 0;
+  .counterBlock{
+    width: 20%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+  }
+  .counter{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-content: space-around;
+    overflow: hidden;
+     div{
+       width: 2.2vw;
+       height: 2.2vw;
+       display: grid;
+       justify-content: center;
+       align-items: center;
+       border-radius: 50%;
+       scale:0.7;
+       @include fontStyle(1em, 400);
+
+     }
+    .counter_active{
+      background-color: white;
+      @include fontStyle(1em, 500, black);
+      scale: 1;
+    }
+  }
+  .counter_action{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    &>button{
+      background-color: transparent;
+      border:0;
+      @include fontStyle(1.4em, 300);
+      &:hover{
+        cursor: pointer;
+      }
+      &:disabled{
+        @include fontStyle(1.4em, 300, gray);
+      }
+    }
+
+  }
+}
