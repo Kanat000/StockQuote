@@ -4,10 +4,12 @@ import Loading from "./Loading.tsx";
 import StockTable from "./StockTable.tsx";
 import spStyle from "./scss/stockPage.module.scss";
 
-interface tableListType{
+interface tableListType {
     state: StateType
 }
+
 const StockTableList: React.FC<tableListType> = ({state}) => {
+
     const tableList = [
         {
             data: state.data.prev,
@@ -22,14 +24,20 @@ const StockTableList: React.FC<tableListType> = ({state}) => {
             className: spStyle.next_card
         },
     ]
-    if(state.loading) return <Loading />
+    if (state.loading) return <Loading/>
     else return (
         <>
             {
-                tableList.map((t)=>{
+                tableList.map((t) => {
 
                     return t.data ? (
-                        t.data.length>0 ? <div className={t.className}><StockTable stocks={t.data} /></div> : <div className={t.className}></div>
+                        t.data.length > 0 ? <div className={t.className}><StockTable stocks={t.data}/></div>
+                            : <div className={t.className}
+                                   style={{
+                                       backgroundColor: " rgba(255, 255, 255, 0.2)",
+                                       backdropFilter: "blur(5px)"
+                                   }}>
+                            </div>
                     ) : <></>
                 })
             }

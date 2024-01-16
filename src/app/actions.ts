@@ -4,46 +4,55 @@ import {StockDataType} from "./stockState.ts";
 
 const BASE_URL = 'https://api.iex.cloud/v1/data/core'
 export type pageNameType = 'prev'|'current'|'next'
-interface fetchArgsType{symbols: string[], page_name: pageNameType}
+export type fetchMethodType = 'load' | 'page_action'
+interface fetchArgsType{symbols: string[], page_name: pageNameType, fetchMethod:fetchMethodType}
+export interface fetchPayloadType { data: StockDataType[] | null, page_name: pageNameType, fetchMethod:fetchMethodType }
+const dataGenerator = (resData:StockDataType) => (
+    {
+        symbol: resData.symbol,
+        companyName: resData.companyName,
+        latestPrice:resData.latestPrice,
+        avgTotalVolume: resData.avgTotalVolume,
+        change: resData.change,
+        changePercent:resData.changePercent,
+        currency: resData.currency,
+        iexOpen:resData.iexOpen,
+        iexClose:resData.iexClose,
+        iexVolume: resData.iexVolume,
+        week52High:resData.week52High,
+        week52Low:resData.week52Low
+    }
+)
+async function axiosFetch(symbol:string){
+    const response = await axios.get(`${BASE_URL}/quote/${symbol}`, {
+        params: {
+            token: "sk_ca0d70051b834bee8a783f2f118eaabb",
+            format: 'json'
+        }
+    });
+    return response.data[0]
+}
 
-export const fetchStocks = createAsyncThunk(
+export const fetchStocks = createAsyncThunk<fetchPayloadType,fetchArgsType>(
     'stocks/fetch',
-    async ({symbols, page_name}:fetchArgsType) => {
+    async ({symbols, page_name, fetchMethod}:fetchArgsType, {rejectWithValue}) => {
+
         try {
             let data: StockDataType[] = [];
             if(symbols.length>0) {
                 for (const symbol of symbols) {
-                    const response = await axios.get(`${BASE_URL}/quote/${symbol}`, {
-                        params: {
-                            token: 'token',
-                            format: 'json'
-                        }
-                    });
-                    const resData = response.data[0]
-
-                    data.push({
-                        avgTotalVolume: resData.avgTotalVolume,
-                        change: resData.change,
-                        close: resData.close,
-                        companyName: resData.companyName,
-                        currency: resData.currency,
-                        delayedPrice: resData.delayedPrice,
-                        extendedChange: resData.extendedChange,
-                        extendedPrice: resData.extendedPrice,
-                        high: resData.high,
-                        latestPrice: resData.latestPrice,
-                        low: resData.low,
-                        symbol: resData.symbol
-                    });
-
-                    // Introduce a delay of 200 milliseconds before the next request
                     await new Promise(resolve => setTimeout(resolve, 200));
+                    const resData = await axiosFetch(symbol)
+                    data.push(dataGenerator(resData));
                 }
-                return { data, page_name };
+                return { data, page_name, fetchMethod};
             }
-            else return {data: null, page_name}
+            else return {data: null, page_name, fetchMethod}
         } catch (e) {
-            throw e
+            if(axios.isAxiosError(e)) {
+                return rejectWithValue(e.response?.status)
+            }
+            else throw e
         }
     })
 

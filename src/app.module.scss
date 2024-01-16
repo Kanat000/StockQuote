@@ -1,3 +1,4 @@
+@import "index";
 .container{
   width: 100vw;
   height: 100vh;
@@ -6,4 +7,17 @@
   align-items: center;
   padding: 2vh;
   overflow: hidden;
+}
+
+.reload{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  @include fontStyle();
+  &>div{
+    width: 100%;
+    &>div{
+      text-align: center;
+    }
+  }
 }

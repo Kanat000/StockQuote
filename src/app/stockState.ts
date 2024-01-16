@@ -1,16 +1,16 @@
 export interface StockDataType {
+    symbol: string;
+    companyName: string;
+    latestPrice: number;
     avgTotalVolume: number;
     change: number;
-    close: number;
-    companyName: string;
+    changePercent: number;
     currency: string;
-    delayedPrice: number;
-    extendedChange: number;
-    extendedPrice: number;
-    high: number;
-    latestPrice: number;
-    low: number;
-    symbol: string;
+    iexOpen: number;
+    iexClose: number;
+    iexVolume: number;
+    week52High: number;
+    week52Low: number;
 }
 
 export interface StateType {
@@ -19,7 +19,8 @@ export interface StateType {
     symbols: string[],
     current_page: number,
     loading: boolean,
-    disabled: boolean
+    disabled: boolean,
+    willReload: boolean
 }
 
 export const initialState: StateType = {
@@ -52,5 +53,6 @@ export const initialState: StateType = {
     ],
     current_page: 0,
     loading: false,
-    disabled: false
+    disabled: false,
+    willReload: false
 }
