@@ -26,7 +26,7 @@ const dataGenerator = (resData:StockDataType) => (
 async function axiosFetch(symbol:string){
     const response = await axios.get(`${BASE_URL}/quote/${symbol}`, {
         params: {
-            token: "sk_ca0d70051b834bee8a783f2f118eaabb",
+            token: "<your_token_here>",
             format: 'json'
         }
     });
